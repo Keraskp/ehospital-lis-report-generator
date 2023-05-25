@@ -2,23 +2,26 @@ package ehospital.lis.hl7reportconverter.service;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
-import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
 @Service
 public class ReportGeneratorService {
 	private final Logger logger = LoggerFactory.getLogger(ReportGeneratorService.class);
-	public void export(HttpServletResponse response) throws IOException {
+	public ByteArrayInputStream export() throws IOException {
 		logger.info("PDF Report Generation Initialized");
 
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+
 		Document document = new Document(PageSize.A4);
-		PdfWriter.getInstance(document, response.getOutputStream());
+		PdfWriter.getInstance(document, out);
 		document.open();
 
 		Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD);
@@ -36,6 +39,7 @@ public class ReportGeneratorService {
 		document.add(paragraph);
 		document.add(paragraph2);
 		document.close();
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 
 }
