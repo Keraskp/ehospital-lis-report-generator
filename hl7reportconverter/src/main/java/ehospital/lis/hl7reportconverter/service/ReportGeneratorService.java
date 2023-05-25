@@ -15,7 +15,7 @@ import java.io.IOException;
 @Service
 public class ReportGeneratorService {
 	private final Logger logger = LoggerFactory.getLogger(ReportGeneratorService.class);
-	public ByteArrayInputStream export() throws IOException {
+	public ByteArrayInputStream export(String msg) throws IOException {
 		logger.info("PDF Report Generation Initialized");
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -33,7 +33,7 @@ public class ReportGeneratorService {
 		Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
 		fontParagraph.setSize(12);
 
-		Paragraph paragraph2 = new Paragraph("This is a paragraph.", fontParagraph);
+		Paragraph paragraph2 = new Paragraph(msg, fontParagraph);
 		paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
 
 		document.add(paragraph);
