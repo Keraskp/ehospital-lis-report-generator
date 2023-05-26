@@ -17,7 +17,7 @@ public class ReportGeneratorController {
 	@Autowired
 	private ReportGeneratorService reportGeneratorService;
 
-	@PostMapping("/generate")
+	@PostMapping(value = "/generate")
 	public ResponseEntity<InputStreamResource> generatePDF(@RequestBody HL7Message msg) throws IOException {
 		ByteArrayInputStream pdf = reportGeneratorService.export(msg.getMsg());
 		HttpHeaders httpHeaders = new HttpHeaders();
